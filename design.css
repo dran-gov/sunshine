@@ -43,7 +43,7 @@
   .card{
     position: relative;
     width: min(400px, 88vw);
-    height: min(590px, 70vh);
+    height: min(610px, 70vh);
     cursor: pointer;
   }
  
