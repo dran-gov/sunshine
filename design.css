@@ -1,0 +1,211 @@
+
+  :root{
+    --pink-bg-1: #f3cfe0;
+    --pink-bg-2: #eeb9d3;
+    --paper: #fbf7f1;
+    --paper-shade: #efe8dd;
+    --coral: #e2734a;
+    --blue: #4f8fc0;
+    --ink: #4a4136;
+    --leaf: #8ba888;
+    --gold: #e8b23d;
+  }
+ 
+  *{ box-sizing: border-box; }
+ 
+  html, body{
+    margin: 0;
+    height: 100%;
+  }
+ 
+  body{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+    radial-gradient(120% 90% at 50% 0%, var(--pink-bg-1), var(--pink-bg-2));
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    padding: 30px 16px;
+  }
+
+ 
+  .stage{
+    perspective: 1800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding-right: 150px;
+  }
+ 
+  .card{
+    position: relative;
+    width: min(400px, 88vw);
+    height: min(550px, 70vh);
+    cursor: pointer;
+  }
+ 
+  .card::before{
+    content: "";
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    bottom: -26px;
+    height: 30px;
+    background: radial-gradient(50% 100% at 50% 0%, rgba(60,30,45,0.28), rgba(60,30,45,0));
+    filter: blur(4px);
+    transition: opacity .9s ease, transform .9s ease;
+    z-index: 0;
+  }
+  .card.open::before{
+    transform: scaleX(1.15);
+    opacity: .8;
+  }
+ 
+  .inside{
+    position: absolute;
+    inset: 0;
+    background: var(--paper);
+    border-radius: 3px;
+    box-shadow:
+      0 18px 40px -12px rgba(70, 30, 45, 0.35),
+      0 2px 6px rgba(70,30,45,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 22px;
+    text-align: center;
+  }
+ 
+  .inside::after{
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 22px;
+    background: linear-gradient(to right, rgba(0,0,0,0.10), rgba(0,0,0,0));
+    pointer-events: none;
+  }
+ 
+  .inside-content{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+ 
+  .inside-title{
+    font-family: 'Caveat', cursive;
+    line-height: 1.05;
+  }
+  .inside-title .l1{
+    display: block;
+    font-size: clamp(20px, 6vw, 30px);
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: var(--coral);
+    text-transform: uppercase;
+  }
+  .inside-title .l2{
+    display: block;
+    font-size: clamp(22px, 7vw, 34px);
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+ 
+  .inside-message{
+    font-family: 'Caveat', cursive;
+    font-size: clamp(16px, 4.2vw, 19px);
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+ 
+  .signature{
+    align-self: flex-end;
+    margin-right: 6px;
+    font-family: 'Caveat', cursive;
+    font-size: 19px;
+    color: var(--ink);
+    opacity: .85;
+  }
+ 
+ 
+  .cover{
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform-origin: left center;
+    transition: transform 1.05s cubic-bezier(.645,.045,.355,1);
+    z-index: 2;
+  }
+  .card.open .cover{
+    transform: rotateY(-160deg);
+  }
+ 
+  .cover-face{
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 3px;
+    background: var(--paper);
+  }
+ 
+  .cover-front{
+    box-shadow:
+      0 18px 40px -12px rgba(70, 30, 45, 0.35),
+      0 2px 6px rgba(70,30,45,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 34px;
+    overflow: hidden;
+  }
+
+  .cover-front::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.6), rgba(0,0,0,0) 60%);
+    pointer-events: none;
+  }
+ 
+  .cover-title{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: clamp(14px, 3.6vw, 16px);
+    letter-spacing: 2.5px;
+    color: var(--coral);
+    z-index: 1;
+  }
+ 
+  .illustration{
+    width: 72%;
+    margin-top: 22px;
+    z-index: 1;
+  }
+ 
+  .cover-back{
+    background: linear-gradient(160deg, #f4efe6, #ece3d6);
+    transform: rotateY(180deg);
+  }
+ 
+  .hint{
+    margin-top: 15px;
+    font-family: 'Caveat', cursive;
+    font-size: 18px;
+    color: #7a5a63;
+    opacity: .85;
+    letter-spacing: .5px;
+    transition: opacity .5s ease;
+    user-select: none;
+  }
+  .card.open + .hint{ opacity: 0; }
+ 
+  @media (prefers-reduced-motion: reduce){
+    .cover{ transition: none; }
+  }
